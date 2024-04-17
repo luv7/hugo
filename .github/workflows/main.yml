@@ -1,4 +1,4 @@
-name: Hugo Build and Deploy
+name: Hugo Build and Deploy with Theme
 
 on:
   push:
@@ -16,6 +16,16 @@ jobs:
         with:
           hugo-version: 'latest'
 
+      - name: Install Theme
+        run: |
+          git clone <theme-repository-URL> themes/my-theme
+          cd themes/my-theme
+          # Perform any additional theme setup steps (if needed)
+
+      - name: Set Hugo Theme
+        run: |
+          echo 'theme = "my-theme"' >> config.toml
+
       - name: Build Hugo site
         run: hugo
 
@@ -24,4 +34,5 @@ jobs:
         with:
           deploy-url: <Netlify deployment URL>
           github-token: ${{ secrets.GITHUB_TOKEN }}
+
 
