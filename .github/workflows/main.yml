@@ -1,0 +1,27 @@
+name: Hugo Build and Deploy
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Hugo
+        uses: actions/setup-hugo@v3
+        with:
+          hugo-version: 'latest'
+
+      - name: Build Hugo site
+        run: hugo
+
+      - name: Deploy to Netlify
+        uses: akashsis/hugo-deploy@v1.0
+        with:
+          deploy-url: <Netlify deployment URL>
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
